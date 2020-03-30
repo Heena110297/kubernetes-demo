@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-management
+  labels:
+   name: user-management-service
+   app: happy-paws-nagp  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9106
+    targetPort: 9106
+  selector:
+   name: user-management-deployment
+   app: happy-paws-nagp

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-management
+  labels:
+   name: order-management-service
+   app: happy-paws-nagp  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9105
+    targetPort: 9105
+  selector:
+   name: order-management-deployment
+   app: happy-paws-nagp

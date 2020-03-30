@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: order-management-deployment
+ labels:
+  app: happy-paws-nagp 
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   name: order-management-deployment
+   app: happy-paws-nagp
+ template:
+  metadata:
+   name: order-management-deployment
+   labels:
+    name: order-management-deployment
+    app: happy-paws-nagp 
+  spec:
+   containers:
+    - name: order-management
+      image: heenamittal11/order-management
+      ports:
+       - containerPort: 9105

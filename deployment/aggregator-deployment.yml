@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: aggregator-deployment
+ labels:
+  app: happy-paws-nagp   
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   name: aggregator-deployment
+   app: happy-paws-nagp
+ template:
+  metadata:
+   name: aggregator-deployment
+   labels:
+    name: aggregator-deployment
+    app: happy-paws-nagp 
+  spec:
+   containers:
+    - name: aggregator
+      image: heenamittal11/aggregator
+      ports:
+       - containerPort: 9107
+      env:
+          - name: ORDER_API_URL
+            valueFrom:
+                configMapKeyRef:
+                  name: aggregator-config-map
+                  key: ORDER_API_URL
+          - name: USER_API_URL
+            valueFrom:
+                configMapKeyRef:
+                  key: USER_API_URL
+                  name: aggregator-config-map

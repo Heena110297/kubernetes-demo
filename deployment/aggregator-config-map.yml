@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aggregator-config-map
+  labels: 
+    app: happy-paws-nagp
+data:
+  ORDER_API_URL: "http://order-management"
+  USER_API_URL: "http://user-management"
