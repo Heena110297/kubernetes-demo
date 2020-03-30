@@ -8,7 +8,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 9105
+  - port: 80
     targetPort: 9105
   selector:
    name: order-management-deployment
