@@ -1,0 +1,41 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+    name: mysql
+spec:
+    selector:
+        matchLabels:
+            name: mysql
+            app: happy-paws-nagp
+    template:
+        metadata:
+            labels:
+                app: happy-paws-nagp
+                name: mysql
+        spec:
+            containers:
+                - image: mysql:8
+                  name: mysql
+                  args:
+                   - "--default-authentication-plugin=mysql_native_password"
+                  env:
+                   - name: MYSQL_ROOT_PASSWORD
+                     valueFrom:
+                        secretKeyRef:
+                            name: db-pass
+                            key: password
+                   - name: MYSQL_ROOT_USERNAME
+                     valueFrom:
+                        secretKeyRef:
+                            name: db-username
+                            key: username
+                  ports:
+                   - containerPort: 3306
+                     name: mysql
+                  volumeMounts:
+                   - name: mysql-persistent-storage
+                     mountPath: /var/lib/mysql
+            volumes:
+              - name: mysql-persistent-storage
+                persistentVolumeClaim:
+                    claimName: mysql-volumeclaim

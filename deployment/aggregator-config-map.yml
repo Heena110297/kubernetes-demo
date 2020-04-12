@@ -7,3 +7,7 @@ metadata:
 data:
   ORDER_API_URL: "http://order-management"
   USER_API_URL: "http://user-management"
+  MYSQL_URL: "jdbc:mysql://mysql-service:80/nagpassignment"
+  JAEGER_URL: "jaeger-query"
+  JAEGER_PORT: "80"
+  JAEGER_COLLECTOR_URL: "jaeger-collector"

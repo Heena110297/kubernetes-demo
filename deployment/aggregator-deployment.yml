@@ -5,7 +5,7 @@ metadata:
  labels:
   app: happy-paws-nagp   
 spec:
- replicas: 1
+ replicas: 2
  selector:
   matchLabels:
    name: aggregator-deployment
@@ -33,3 +33,19 @@ spec:
                 configMapKeyRef:
                   key: USER_API_URL
                   name: aggregator-config-map
+          - name: JAEGER_URL
+            valueFrom:
+                configMapKeyRef:
+                  key: JAEGER_URL
+                  name: aggregator-config-map
+          - name: JAEGER_PORT
+            valueFrom:
+                configMapKeyRef:
+                  key: JAEGER_PORT
+                  name: aggregator-config-map
+          - name: JAEGER_COLLECTOR_URL
+            valueFrom:
+                configMapKeyRef:
+                  key: JAEGER_COLLECTOR_URL
+                  name: aggregator-config-map
+        

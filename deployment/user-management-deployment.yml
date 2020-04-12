@@ -22,3 +22,34 @@ spec:
       image: heenamittal11/user-management
       ports:
        - containerPort: 9106
+      env:
+        - name: JAEGER_URL
+          valueFrom:
+                configMapKeyRef:
+                  key: JAEGER_URL
+                  name: aggregator-config-map
+        - name: JAEGER_PORT
+          valueFrom:
+                configMapKeyRef:
+                  key: JAEGER_PORT
+                  name: aggregator-config-map
+        - name: JAEGER_COLLECTOR_URL
+          valueFrom:
+                configMapKeyRef:
+                  key: JAEGER_COLLECTOR_URL
+                  name: aggregator-config-map
+        - name: MYSQL_URL
+          valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_URL
+                  name: aggregator-config-map
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+                secretKeyRef:
+                  name: db-pass
+                  key: password
+        - name: MYSQL_ROOT_USERNAME
+          valueFrom:
+                secretKeyRef:
+                   name: db-username
+                   key: username

@@ -1,15 +1,35 @@
 package com.nagarro.nagp.usermanagement.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	Long userId;
 
+	@Column(name = "name")
 	String name;
-	
+
+	@Column(name = "email_id")
 	String emailid;
-	
+
+	@Column(name = "age")
 	int age;
-	
+
+	/**
+	 * 
+	 */
+	public User() {
+	}
 
 	/**
 	 * @param userId
@@ -125,7 +145,5 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", emailid=" + emailid + ", age=" + age + "]";
 	}
-	
-	
 
 }

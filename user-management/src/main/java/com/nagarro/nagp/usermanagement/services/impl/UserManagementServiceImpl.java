@@ -1,38 +1,41 @@
 package com.nagarro.nagp.usermanagement.services.impl;
 
-import java.util.ArrayList;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nagarro.nagp.usermanagement.model.User;
+import com.nagarro.nagp.usermanagement.repository.UserRepository;
 import com.nagarro.nagp.usermanagement.services.UserManagementService;
 
+/**
+ * 
+ * @author HMT
+ * @version 1.0
+ *
+ */
 @Service
 public class UserManagementServiceImpl implements UserManagementService {
 
+	@Autowired
+	UserRepository userRepo;
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+	
 	@Override
 	public User getUserByUserId(long userId) {
-		List<User> users = getUsers();
-		for (User user : users) {
-			if (user.getUserId() == userId)
-				return user;
-		}
-		return null;
+		LOGGER.info("Fetching user from DB ...");
+		return userRepo.findById(userId).orElse(null);
 	}
 
 	@Override
 	public List<User> getListOfUsers() {
-		return getUsers();
-				
-	}
+		LOGGER.info("Fetching all user from DB ...");
+		return userRepo.findAll();
 
-	public List<User> getUsers() {
-		List<User> users = new ArrayList<>();
-		User user1 = new User(1l, "Heena", "heena.mittal@nagarro.com", 23);
-		User user2 = new User(2l, "TestUser", "testUser@gmail.com", 30);
-		users.add(user1);
-		users.add(user2);
-		return users;
 	}
 }

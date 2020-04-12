@@ -3,11 +3,14 @@
  */
 package com.nagarro.nagp.aggregator.services.impl;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,8 @@ import com.nagarro.nagp.aggregator.services.AggregatorService;
  */
 @Service
 public class AggregatorServiceImpl implements AggregatorService {
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
 	@Value("${USER_API_URL:http://localhost:9106}")
 	private String userApiUrl;
@@ -38,7 +43,9 @@ public class AggregatorServiceImpl implements AggregatorService {
 	
 	@Override
 	public UserDetails getUserDetail(long userId) {
+		LOGGER.info("Fetching User with userId :"+userId);
 		User user = getUserByUserId(userId);
+		LOGGER.info("Fetching Orders of user with userId :"+userId);
 		List<Order> userOrders = new ArrayList<>();
 		List<Order> orders = getListOfOrders();
 		if(userId == 1) {
@@ -49,6 +56,7 @@ public class AggregatorServiceImpl implements AggregatorService {
 			userOrders.add(orders.get(2));
 			userOrders.add(orders.get(3));
 		}
+		LOGGER.info("Operation Completed");
 		return new UserDetails(userId, user.getName(), user.getEmailid(), user.getAge(), userOrders);
 	}
 
